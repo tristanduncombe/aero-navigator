@@ -14,7 +14,7 @@
   #rect(width: 15pt, height: 15pt, stroke: 0.5pt)
 ]
 
-#let  header(callsign, type, departure) = {[
+#let header(callsign, type, departure) = {[
   #text(6pt)[
 #table(columns: (25%, 25%, 25%, 25%), stroke: (none), row-gutter: -8pt
 )[Callsign][Type][Sartime][Departure Airport][#standard_box(text: callsign)][#standard_box(text: type)][#standard_box()][#standard_box(text: departure)][DEPARTURE TIME][FORECAST][NOTAM][W & B][#table(columns: (1fr, 1fr), inset: 0pt,
@@ -122,26 +122,18 @@
 ]
 
 
-#let notes_and_divert(lines, aerodrome) = {
+#let notes_and_divert() = {
   box(height:22%)[
     #text(6pt)[
     #columns(2)[
-      
-    #if lines == true {
-      
-      [Notes
-      #table(columns:(1fr, 1fr, 1fr, 1fr, 1fr, 1fr), stroke: (x, y) => {
-      (bottom: 0.5pt + black)
-      }, rows: (1fr, 1fr, 1fr, 1fr, 1fr, 1fr, 1fr, 1fr, 1fr, 1fr))]
 
-    } else if aerodrome == true {
-      [#text(6pt)[
+      #text(6pt)[
         #table(columns: (1fr, 1fr), stroke: (none))[Aerodrome][#text(size: 6pt)[#table(columns: (1fr, 1fr, 1fr), inset: 0pt,
           align: horizon,
           stroke: (none),
           [Elev],
           [CTAF],
-          [AWIS]
+          [OTHER]
         )]][#standard_box()][
           #table(columns: (1fr, 1fr, 1fr), inset: 0pt,
           align: horizon,
@@ -150,12 +142,7 @@
           [#standard_box()],
           [#standard_box()]
         )][Field Layout][Pilot Notes][#tall_box()][#tall_box()]
-      ]]
-    } else {
-      [Notes
-      #table(columns:(1fr, 1fr, 1fr, 1fr, 1fr, 1fr), stroke: none, rows: (1fr, 1fr, 1fr, 1fr, 1fr, 1fr, 1fr, 1fr, 1fr, 1fr))]
-
-    }
+      ]
     Divert
     #table(columns:(1fr, 1fr, 1fr, 1fr, 1fr, 1fr, 1fr), 
     stroke: 0.5pt,
@@ -168,42 +155,6 @@
   ]
 }
 
-#let notes_and_fuel(aircraft) = [
-  #box(height:45%)[
-  #if aircraft == "fixed-wing" {[
-    #text(6pt)[
-      Fuel
-        #table(
-      rows: (1fr, 1fr, 1fr, 1fr, 1fr, 1fr, 1fr, 1fr, 1fr, 1fr, 1fr, 1fr),
-      columns: (1.25fr, 1fr, 1fr, 1fr, 1fr),
-      stroke: 0.5pt,
-      table.header(table.cell(rowspan: 1, colspan:1)[Fuel], table.cell(rowspan: 1, colspan: 4, fill: rgb("#f0f0f0"))[#align(center)[]]))[]
-      
-  ]]} else if aircraft == "rotary-wing" {[
-    #text(6pt)[
-      Fuel
-        #table(
-      table.header(table.cell(rowspan: 1, colspan:1)[Fuel], table.cell(rowspan: 1, colspan: 4, fill: rgb("#f0f0f0"))[#align(center)[]]))[]
-    ]]
-  } else if aircraft == "both" {[
-    #text(6pt)[
-      Fuel
-        #table(
-      table.header(table.cell(rowspan: 1, colspan:1)[Fuel], table.cell(rowspan: 1, colspan: 4, fill: rgb("#f0f0f0"))[#align(center)[]]))[]
-    ]]
-  }
-  ]
-
-  #box(height:20%)[
-    #text(6pt)[
-    Pilot Notes
-    #table(columns:(1fr, 1fr, 1fr, 1fr, 1fr, 1fr), stroke: (x, y) => {
-      (bottom: 0.5pt + black)
-      },
-      rows: (1fr, 1fr, 1fr, 1fr, 1fr, 1fr, 1fr, 1fr, 1fr))
-    ]
-  ]
-]
 #let table-json(data) = {
     let keys = data.at(0).keys()
     table(
@@ -219,7 +170,7 @@
     )
 }
 
-#let navigation-logger(aircraft: "both", callsign: "", type: "", departure: "",  variant: "1", lines: bool, waypoint: false, waypoints: "", fixes: [], doc) = [
+#let navigation-logger(callsign: "", type: "", departure: "", waypoint: false, waypoints: "", notes: false, doc) = [
   #set text(font: "DejaVu Sans Mono", size: 9pt)
 
   #set page(
@@ -232,13 +183,21 @@
   )
   Nav Log
   #header(callsign, type, departure)
-  #nav_log(fixes)
+  // TODO - use JSON to add waypoints to table
+  #nav_log([])
   #fuel_com_log
-  #notes_and_divert(false, true)
-  #if variant == 2 {
-    [#notes_and_fuel(aircraft)]
-  } 
-
+  #notes_and_divert()
+  #if notes == true {
+      box(height: 95%)[
+        #text(6pt)[
+        Pilot Notes
+        #table(columns:(1fr),
+          stroke: 0.5pt,
+          rows: (1fr))
+        ]
+    ]
+  }
+  
   #if waypoint == true and waypoints != "" {
     box(height: 100%)[
       #table-json(json(waypoints))
