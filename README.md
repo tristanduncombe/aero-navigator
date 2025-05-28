@@ -3,8 +3,6 @@
 
 A Navigation Log, developed to replace multiple pages of notes and provide a succinct template to manage all the information needed as a Cross Country Pilot!
 
-## Template adaptation checklist
-
 ## Getting Started
 
 A simple, bare-bones navigation sheet will look like this.
