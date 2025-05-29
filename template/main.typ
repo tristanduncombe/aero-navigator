@@ -7,4 +7,5 @@
   waypoint: false,
   waypoints: "",
   notes: true,
+  notes: true,
 )
