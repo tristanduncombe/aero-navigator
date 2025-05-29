@@ -1,4 +1,4 @@
-# Navigation Logger
+# Aero Navigator
 <div align="center">Version 0.1.0</div>
 
 A Navigation Log, developed to replace multiple pages of notes and provide a succinct template to manage all the information needed as a Cross Country Pilot!
@@ -8,9 +8,9 @@ A Navigation Log, developed to replace multiple pages of notes and provide a suc
 A simple, bare-bones navigation sheet will look like this.
 
 ```typ
-#import "@preview/navigation-logger:0.1.0": *
+#import "@preview/aero-navigator:0.1.0": *
 
-#show: navigation-logger.with()
+#show: aero-navigator
 ```
 
 <picture>
@@ -22,9 +22,9 @@ A simple, bare-bones navigation sheet will look like this.
 This template is very flexible and can be used in a number of ways.
 
 ```typ
-#import "@preview/navigation-logger:0.1.0": *
+#import "@preview/aero-navigator:0.1.0": *
 
-#show: navigation-logger.with(
+#show: aero-navigator.with(
   aircraft: "both",
   callsign: "24-8569",
   type: "SLG2",

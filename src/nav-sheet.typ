@@ -1,44 +1,44 @@
-#let standard_box(text: "") = {
+#let standard-box(text: "") = {
   rect(width: 100%, height: 15pt, stroke: 0.5pt, text)
 }
 
-#let tall_box(text: "") = {
+#let tall-box(text: "") = {
   rect(width: 100%, height: 1fr, stroke: 0.5pt, text)
 }
 
-#let small_box = [
+#let small-box = [
   #rect(width: 15pt, height: 15pt, stroke: 0.5pt)
 ]
 
-#let small_box = [
+#let small-box = [
   #rect(width: 15pt, height: 15pt, stroke: 0.5pt)
 ]
 
 #let header(callsign, type, departure) = {[
   #text(6pt)[
 #table(columns: (25%, 25%, 25%, 25%), stroke: (none), row-gutter: -8pt
-)[Callsign][Type][Sartime][Departure Airport][#standard_box(text: callsign)][#standard_box(text: type)][#standard_box()][#standard_box(text: departure)][DEPARTURE TIME][FORECAST][NOTAM][W & B][#table(columns: (1fr, 1fr), inset: 0pt,
+)[Callsign][Type][Sartime][Departure Airport][#standard-box(text: callsign)][#standard-box(text: type)][#standard-box()][#standard-box(text: departure)][DEPARTURE TIME][FORECAST][NOTAM][W & B][#table(columns: (1fr, 1fr), inset: 0pt,
   align: horizon,
   stroke: (none),
-  [#standard_box()],
-  [#standard_box()],
+  [#standard-box()],
+  [#standard-box()],
 )][#table(columns: (1fr, 1fr, 1fr), inset: 0pt,
   align: horizon,
   stroke: (none),
-  [#small_box],
-  [#small_box],
-  [#small_box]
+  [#small-box],
+  [#small-box],
+  [#small-box]
 )][#table(columns: (1fr, 1fr, 1fr), inset: 0pt,
   align: horizon,
   stroke: (none),
-  [#small_box],
-  [#small_box],
-  [#small_box]
+  [#small-box],
+  [#small-box],
+  [#small-box]
 )][#table(columns: (1fr, 1fr), inset: 0pt,
   align: horizon,
   stroke: (none),
-  [#standard_box()],
-  [#standard_box()],
+  [#standard-box()],
+  [#standard-box()],
 )][#text(size: 6pt)[#table(columns: (1fr, 1fr), inset: 0pt,
   align: horizon,
   stroke: (none),
@@ -64,7 +64,7 @@
 )]]]
 ]}
 
-#let nav_log(fixes) = {[
+#let nav-log(fixes) = {[
   #box(height: 30%)[
   #text(6pt)[
       #table(columns: (1fr, 1fr, 1fr, 1fr, 1fr, 1fr, 1fr, 1fr, 1fr, 1fr, 1.5fr, 1.5fr, 1.5fr),
@@ -93,7 +93,7 @@
   ]
 ]}
 
-#let fuel_com_log = [
+#let fuel-com-log = [
   #box(height:25%)[
   #text(5pt)[
   #columns(3)[
@@ -122,7 +122,7 @@
 ]
 
 
-#let notes_and_divert() = {
+#let notes-and-divert() = {
   box(height:22%)[
     #text(6pt)[
     #columns(2)[
@@ -134,14 +134,14 @@
           [Elev],
           [CTAF],
           [OTHER]
-        )]][#standard_box()][
+        )]][#standard-box()][
           #table(columns: (1fr, 1fr, 1fr), inset: 0pt,
           align: horizon,
           stroke: (none),
-          [#standard_box()],
-          [#standard_box()],
-          [#standard_box()]
-        )][Field Layout][Pilot Notes][#tall_box()][#tall_box()]
+          [#standard-box()],
+          [#standard-box()],
+          [#standard-box()]
+        )][Field Layout][Pilot Notes][#tall-box()][#tall-box()]
       ]
     Divert
     #table(columns:(1fr, 1fr, 1fr, 1fr, 1fr, 1fr, 1fr), 
@@ -170,7 +170,7 @@
     )
 }
 
-#let navigation-logger(callsign: "", type: "", departure: "", waypoint: false, waypoints: "", notes: false, doc) = [
+#let aero-navigator(callsign: "", type: "", departure: "", waypoint: false, waypoints: "", notes: false, doc) = [
   #set text(font: "DejaVu Sans Mono", size: 9pt)
 
   #set page(
@@ -184,9 +184,9 @@
   Nav Log
   #header(callsign, type, departure)
   // TODO - use JSON to add waypoints to table
-  #nav_log([])
-  #fuel_com_log
-  #notes_and_divert()
+  #nav-log([])
+  #fuel-com-log
+  #notes-and-divert()
   #if notes == true {
       box(height: 95%)[
         #text(6pt)[

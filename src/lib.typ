@@ -2,4 +2,4 @@
 * Package Entrypoint
 */
 
-#import "./nav-sheet.typ": *
+#import "./nav-sheet.typ": aero-navigator
